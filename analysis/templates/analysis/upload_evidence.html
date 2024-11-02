@@ -1,0 +1,93 @@
+{% extends 'analysis/dashboard.html' %}
+
+{% block title %}Upload Evidence{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-6 px-4 lg:px-8">
+    <h2 class="text-2xl font-semibold text-gray-200 mb-6 text-center">Upload Digital Evidence</h2>
+
+    <!-- Message Alert Section -->
+    {% if messages %}
+    <div id="notification" class="alert alert-dismissible fade show mb-4" role="alert">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} bg-blue-600 text-center p-4 rounded" style="color: green;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script>
+        // Set timer to hide notification after 3 seconds
+        setTimeout(function () {
+            var notification = document.getElementById('notification');
+            if (notification) {
+                notification.style.transition = 'opacity 0.5s ease';
+                notification.style.opacity = '0'; // Fade out
+                setTimeout(function () { notification.remove(); }, 500); // Remove after fade out
+            }
+        }, 3000);
+    </script>
+
+    <!-- Upload Form -->
+    <div class="flex justify-center">
+        <div class="card bg-slate-800 p-8 rounded-lg shadow-lg w-full lg:w-1/2 text-center" id="upload-area">
+            <h4 class="text-xl font-medium text-gray-100 mb-4">Drag & Drop Your Evidence File Here</h4>
+            <p class="text-gray-400 mb-6">Supported formats: .pcap, .txt, .json</p>
+            <form method="post" enctype="multipart/form-data" id="upload-form" class="space-y-4">
+                {% csrf_token %}
+                <input type="file" name="file" id="file" class="file-input hidden" required />
+                <label for="file" class="btn btn-custom bg-orange-600 text-white px-4 py-2 rounded-lg cursor-pointer">Select File</label>
+                <p id="file-name" class="text-gray-300 mt-2"></p>
+                <button type="submit" class="btn bg-blue-600 text-white rounded px-6 py-2 mt-4 hover:bg-blue-700">Upload Evidence</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for drag-and-drop interaction -->
+<script>
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file');
+    const fileNameDisplay = document.getElementById('file-name');
+    const body = document.body;
+    const fileHoverMessage = document.createElement('div');
+
+    // Create the hover message element
+    fileHoverMessage.className = 'file-hover-message';
+    fileHoverMessage.textContent = 'Drop file anywhere to upload';
+    body.appendChild(fileHoverMessage);
+
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+        body.classList.add('dragging');
+        fileHoverMessage.classList.add('active');
+    });
+
+    uploadArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        body.classList.remove('dragging');
+        fileHoverMessage.classList.remove('active');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        body.classList.remove('dragging');
+        fileHoverMessage.classList.remove('active');
+        fileInput.files = e.dataTransfer.files;
+        fileNameDisplay.textContent = `Selected file: ${fileInput.files[0].name}`;
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = `Selected file: ${fileInput.files[0].name}`;
+        }
+    });
+</script>
+{% endblock %}
