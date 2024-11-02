@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Dashboard</title>
+    <!-- <link href="/static/assets/images/favicon.ico" rel="shortcut icon"> -->
+    <link href="/static/assets/libs/@iconscout/unicons/css/line.css" rel="stylesheet">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+
+    <link rel="stylesheet" href="/static/assets/css/tailwind.css">
+    <style>
+        /* Sidebar and Responsiveness */
+        .sidebar {
+            background-color: #2d3748;
+            width: 16rem;
+            height: 100vh;
+            position: fixed;
+            color: #edf2f7; 
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 20;
+        }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .sidebar ul li {
+            padding: 1rem 1.5rem;
+        }
+        .sidebar ul li:hover {
+            background-color: #4a5568;
+        }
+        /* Sidebar Toggle Button */
+        .sidebar-toggle {
+            display: block;
+            padding: 1rem;
+            cursor: pointer;
+            color: #2d3748; 
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 30;
+        }
+        @media (min-width: 768px) {
+            .sidebar {
+                transform: translateX(0);
+            }
+            .sidebar-toggle {
+                display: none;
+            }
+        }
+        /* Content Area */
+        .main-content {
+            padding: 2rem;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+            height: 100vh;
+            background-color: #f7fafc;
+        }
+        @media (min-width: 768px) {
+            .main-content {
+                margin-left: 16rem;
+            }
+        }
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2d3748; 
+            padding: 1rem;
+            color: #edf2f7; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+        @media (max-width: 767px) {
+            .navbar {
+                display: none;
+            }
+        }
+        /* Card Styles */
+        .card {
+            background-color: #1f2937;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            color: #D92546;
+        }
+        .btn {
+            background-color: transparent;
+            border: 2px solid #D92546;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #D92546;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans text-base text-gray-900 dark:text-white dark:bg-gray-800">
+    <!-- Sidebar -->
+    <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="uil uil-bars text-2xl"></i>
+    </div>
+    <div class="sidebar">
+        <div class="py-6 text-center text-2xl font-semibold">
+            <a href="{% url 'dashboard' %}" class="text-white hover:text-blue-400">Dashboard</a>
+        </div>
+        <ul class="mt-6">
+            <li><a href="{% url 'upload_evidence' %}" class="flex items-center"><i class="uil uil-upload mr-3"></i>Upload Evidence</a></li>
+            <li><a href="{% url 'add_analysis' %}" class="flex items-center"><i class="uil uil-file-alt mr-3"></i>Submit Analysis</a></li>
+            <li><a href="{% url 'evidence_list' %}" class="flex items-center"><i class="uil uil-list-ul mr-3"></i>View Evidence</a></li>
+            <li><a href="{% url 'user_profile' %}" class="flex items-center"><i class="uil uil-user mr-3"></i>Profile</a></li>
+            <li>
+                <form action="{% url 'logout' %}" method="post" class="flex items-center mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center text-red-500"><i class="uil uil-signout mr-3"></i>Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="text-lg font-semibold">Welcome, {{ user.username }}</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content mt-16"> <!-- Added margin-top for navbar -->
+        <div id="content-area" class="p-4 h-full flex flex-col justify-center items-center">
+            {% block content %}
+            <div class="text-2xl font-semibold mb-6">Dashboard Overview</div>
+
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 w-full">
+                <div class="card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Upload Evidence</h3>
+                    <a href="{% url 'upload_evidence' %}" class="btn">Go to Upload</a>
+                </div>
+                <div class="card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Submit Analysis</h3>
+                    <a href="{% url 'add_analysis' %}" class="btn">Submit</a>
+                </div>
+                <div class="card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">View Evidence</h3>
+                    <a href="{% url 'evidence_list' %}" class="btn">View Evidence</a>
+                </div>
+                <div class="card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">Profile</h3>
+                    <a href="{% url 'user_profile' %}" class="btn">View Profile</a>
+                </div>
+            </div>
+
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- jQuery for Sidebar Toggle -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+    </script>
+     <!-- JAVASCRIPTS -->
+     <script src="/static/assets/libs/gumshoejs/gumshoe.polyfills.min.js"></script>
+     <script src="/static/assets/libs/tobii/js/tobii.min.js"></script>
+     <script src="/static/assets/libs/tiny-slider/min/tiny-slider.js"></script>
+     <script src="/static/assets/js/plugins.init.js"></script>
+     <script src="/static/assets/js/app.js"></script>
+     <script src="/static/assets/js/easy_background.js"></script>
+     <!-- JAVASCRIPTS -->
+ 
+</body>
+</html>

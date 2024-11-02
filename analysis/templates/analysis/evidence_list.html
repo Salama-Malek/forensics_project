@@ -1,0 +1,65 @@
+{% extends "analysis/dashboard.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Evidence List{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-6 px-4 lg:px-8">
+  <h2 class="text-2xl font-semibold text-gray-200 mb-6 text-center">Evidence and Malware Analysis</h2>
+
+  {% if messages %}
+  <div id="notification" class="alert alert-dismissible fade show mb-4" role="alert">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} bg-blue-600 text-white p-4 rounded">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+  </div>
+  <script>
+      setTimeout(function(){
+          window.location.href = "{% url 'evidence_list' %}";
+      }, 2000); // 2 seconds delay
+  </script>
+  {% endif %}
+  
+  <div class="flex justify-center">
+    <div class="w-full lg:w-3/4" style="color: white;">
+      {% if evidence %}
+        <ul class="space-y-4">
+          {% for item in evidence %}
+          <li class="bg-slate-800 text-gray-200 p-6 rounded-lg shadow-lg">
+            <h5 class="text-lg font-medium text-gray-100 mb-2">Evidence {{ item.id }} - <span class="file-name">{{ item.file.name }}</span></h5>
+            <p><strong>Uploaded on:</strong> {{ item.created_at|date:"F j, Y, g:i a" }}</p>
+
+            <div class="bg-slate-700 p-4 rounded-lg mt-4">
+              {% for analysis in item.malwareanalysis_set.all %}
+              <p><strong>Analysis Result:</strong> {{ analysis.analysis_result }}</p>
+              <p><strong>Analyzed on:</strong> {{ analysis.created_at|date:"F j, Y, g:i a" }}</p>
+              {% empty %}
+              <p>No analysis available for this evidence.</p>
+              {% endfor %}
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-4">
+              <a href="{% url 'download_report' item.id %}" class="btn bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700">Download Report</a>
+              
+              {% if item.file.name|endswith:".pcap" or item.file.name|endswith:".pcapng" %}
+              <a href="{% url 'analyze_pcap' item.id %}" class="btn bg-orange-600 text-white rounded px-4 py-2 hover:bg-orange-700">Analyze PCAP</a>
+              {% endif %}
+              <a href="{% url 'delete_evidence' item.id %}" class="btn bg-red-600 text-white rounded px-4 py-2 hover:bg-red-700" onclick="return confirm('Are you sure you want to delete this evidence?');">Delete</a>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="bg-blue-600  text-center p-4 rounded-lg" style="color: black;">No evidence files uploaded yet.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

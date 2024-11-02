@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Digital Forensic Website</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+      body {
+          background: linear-gradient(to right, #6A82FB, #FC5C7D);
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          height: 100vh;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+  
+      .form-container {
+          background-color: #ffffff;
+          padding: 40px;
+          border-radius: 10px;
+          width: 100%;
+          max-width: 400px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+  
+      .form-control {
+          background-color: #ececec;
+          border: 2px solid transparent; /* Added for better focus visibility */
+          padding: 18px 20px; /* Increased padding for larger input fields */
+          margin-bottom: 20px;
+          border-radius: 8px; /* Adjusted for a modern rounded look */
+          font-size: 16px; /* Larger font size for better readability */
+          color: #333;
+      }
+  
+      .form-control:focus {
+          border-color: #FF7675; /* Enhanced focus border color */
+          box-shadow: 0 0 8px rgba(255, 114, 117, 0.6); /* Subtle glow effect on focus */
+      }
+  
+      .btn-custom {
+          background-color: #4A00E0;
+          color: white;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 25px;
+          width: 100%;
+          font-size: 18px; /* Larger button font for better visibility */
+          transition: background 0.3s;
+      }
+  
+      .btn-custom:hover {
+          background-color: #3e0097;
+      }
+  
+      .form-heading {
+          font-weight: bold;
+          text-align: center;
+          margin-bottom: 30px; /* Increased spacing for better layout */
+          color: #3e0097;
+      }
+  
+      .text-muted {
+          color: #b2bec3;
+          margin-top: 15px; /* Adjusted margin for better spacing */
+          font-size: 14px; /* Adjusted font size for consistency */
+      }
+  
+      a {
+          color: #4A00E0;
+          text-decoration: none;
+      }
+  
+      a:hover {
+          color: #FF7675;
+      }
+  </style>
+  
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="form-heading">Login to Your Account</h2>
+        <!-- Placeholder for potential Django messages -->
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                <div class="text-danger">
+                    {{ form.username.errors }}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {% if form.password.errors %}
+                <div class="text-danger">
+                    {{ form.password.errors }}
+                </div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-custom">Log In</button>
+            <p class="text-muted mt-3">
+                Don't have an account? <a href="{% url 'register' %}">Sign Up</a>
+            </p>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

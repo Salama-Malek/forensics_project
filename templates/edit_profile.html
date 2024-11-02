@@ -1,0 +1,125 @@
+{% extends 'analysis/dashboard.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-5 lg:w-1/2">
+  <h2 class="dashboard-heading text-gray-200">Edit Profile</h2>
+
+  <div class="flex justify-center">
+    <div class="card bg-slate-800 shadow-lg border-0 rounded-lg w-full">
+      <div class="card-header bg-blue-600 text-gray-200 px-6 py-4 rounded-t-lg">
+        <h5 class="text-lg font-semibold">Update Profile</h5>
+      </div>
+      <div class="card-body px-4 py-6 text-gray-200">
+        
+        <!-- Profile Update Form -->
+        <form method="post" action="{% url 'edit_profile' %}">
+          {% csrf_token %}
+
+          <!-- Username Field -->
+          <div class="mb-4">
+            <label for="username" class="block text-gray-400 font-bold">Username</label>
+            <input type="text" name="username" id="username" value="{{ user.username }}" required
+                   class="w-full px-4 py-2 mt-1 bg-slate-700 text-gray-200 border border-gray-600 rounded focus:outline-none focus:border-blue-600">
+          </div>
+
+          <!-- New Password Field (Optional) -->
+          <div class="mb-4">
+            <label for="new_password1" class="block text-gray-400 font-bold">New Password (optional)</label>
+            <div class="relative flex items-center">
+              <input type="password" name="new_password1" id="new_password1"
+                     class="w-full pr-10 pl-4 py-2 bg-slate-700 text-gray-200 border border-gray-600 rounded focus:outline-none focus:border-blue-600">
+              <i class="toggle-password fas fa-eye text-white cursor-pointer absolute right-3" onclick="togglePasswordVisibility('new_password1', this)"></i>
+            </div>
+          </div>
+          
+          <!-- Confirm New Password Field -->
+          <div class="mb-6">
+            <label for="new_password2" class="block text-gray-400 font-bold">Confirm New Password</label>
+            <div class="relative flex items-center">
+              <input type="password" name="new_password2" id="new_password2"
+                     class="w-full pr-10 pl-4 py-2 bg-slate-700 text-gray-200 border border-gray-600 rounded focus:outline-none focus:border-blue-600">
+              <i class="toggle-password fas fa-eye text-white cursor-pointer absolute right-3" onclick="togglePasswordVisibility('new_password2', this)"></i>
+            </div>
+          </div>
+
+          <div class="text-center mt-6">
+            <button type="submit" class="btn bg-blue-600 text-white rounded px-6 py-2 hover:bg-blue-700">Save Changes</button>
+          </div>
+        </form>
+
+        <!-- Back to Profile Link -->
+        <div class="mt-8 text-center">
+          <a href="{% url 'user_profile' %}" class="text-gray-400 hover:text-gray-200">Back to Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .card-header {
+    background-color: #2563EB; /* Tailwind bg-blue-600 */
+    color: #F9FAFB; /* text-gray-200 */
+  }
+
+  .card-body {
+    background-color: #1E293B; /* Tailwind bg-slate-800 */
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+  }
+
+  form p {
+    margin-bottom: 1rem;
+  }
+
+  form label {
+    color: #A0AEC0; /* Tailwind text-gray-400 */
+    font-weight: bold;
+  }
+
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #2D3748; 
+    color: #F9FAFB; /* text-gray-200 */
+    border: 1px solid #4A5568; /* Tailwind bg-slate-600 */
+    border-radius: 5px;
+  }
+
+  form input:focus {
+    outline: none;
+    border-color: #2563EB; /* Tailwind bg-blue-600 */
+  }
+
+  .toggle-password {
+    right: 10px; /* Align icon to the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+  }
+</style>
+
+<script>
+    function togglePasswordVisibility(passwordId, icon) {
+      const passwordField = document.getElementById(passwordId);
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+</script>
+{% endblock %}
