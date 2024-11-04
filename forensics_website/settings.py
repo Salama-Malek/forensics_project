@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-+qal-@!c79r$yncq4&vp1(&!@l)f2v3th@jd*6trk!8#5bt4^n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['88.223.94.96', 'digitaldetective.xyz']
+ALLOWED_HOSTS = ['digitaldetective.xyz', '88.223.94.96']
 
 
 # Application definition
@@ -141,3 +141,5 @@ import os
 # Static files (CSS, JavaScript, Images)
 # STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+LOGIN_REDIRECT_URL = '/dashboard/'
