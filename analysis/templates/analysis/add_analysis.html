@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mx-auto py-6 px-4 lg:px-8">
-  <h2 class="text-2xl font-semibold text-gray-200 mb-6 text-center">Submit Malware Analysis</h2>
+    <h2 class="text-2xl font-semibold text-gray-200 mb-6 text-center">Submit Malware Analysis</h2>
 
     <!-- Message Alert Section -->
     {% if messages %}
@@ -20,45 +20,47 @@
     </div>
     {% endif %}
 
-  <script>
-    // Set timer to hide notification after 3 seconds
-    setTimeout(function () {
-        var notification = document.getElementById('notification');
-        if (notification) {
-            notification.style.transition = 'opacity 0.5s ease';
-            notification.style.opacity = '0'; // Fade out
-            setTimeout(function () { notification.remove(); }, 500); // Remove after fade out
-        }
-    }, 3000);
-  </script>
+    <script>
+        // Set timer to hide notification after 3 seconds
+        setTimeout(function () {
+            var notification = document.getElementById('notification');
+            if (notification) {
+                notification.style.transition = 'opacity 0.5s ease';
+                notification.style.opacity = '0'; // Fade out
+                setTimeout(function () { notification.remove(); }, 500); // Remove after fade out
+            }
+        }, 3000);
+    </script>
 
-  <div class="flex justify-center">
-    <div class="card w-full lg:w-3/4 bg-slate-800 p-8 rounded-lg shadow-lg ">
-      <div class="card-header bg-blue-600 text-white text-center p-4 rounded-t-lg">
-        <h5 class="text-lg font-medium">Fill out the details below:</h5>
-      </div>
-      <div class="card-body bg-slate-700 p-6">
-        <form method="post">
-          {% csrf_token %}
-          <div class="mb-4">
-            <label for="evidence" class="text-gray-200">Evidence</label>
-            {{ form.evidence }}
-            {% if form.evidence.errors %}
-              <div class="text-red-500">{{ form.evidence.errors.as_text }}</div>
-            {% endif %}
-          </div>
-          <div class="mb-4">
-            <label for="analysis_result" class="text-gray-200">Analysis Result</label>
-            {{ form.analysis_result }}
-            {% if form.analysis_result.errors %}
-              <div class="text-red-500">{{ form.analysis_result.errors.as_text }}</div>
-            {% endif %}
-          </div>
-          <button type="submit" class="btn bg-blue-600 text-white rounded px-6 py-2 mt-4 hover:bg-blue-700">Submit Analysis</button>
-        </form>
-      </div>
+    <!-- Card for form -->
+    <div class="flex justify-center">
+        <div class="card w-full sm:w-11/12 md:w-3/4 lg:w-1/2 bg-slate-800 p-6 rounded-lg shadow-lg">
+            <div class="card-header bg-blue-600 text-white text-center p-4 rounded-t-lg">
+                <h5 class="text-lg font-medium">Fill out the details below:</h5>
+            </div>
+            <div class="card-body bg-slate-700 p-6">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="evidence" class="text-gray-200 block mb-2">Evidence</label>
+                        <select id="evidence" name="evidence" class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300">
+                            <!-- options would be filled here based on server-side data -->
+                        </select>
+                        {% if form.evidence.errors %}
+                        <div class="text-red-500 mt-2">{{ form.evidence.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        <label for="analysis_result" class="text-gray-200 block mb-2">Analysis Result</label>
+                        <textarea id="analysis_result" name="analysis_result" class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300 h-40"></textarea>
+                        {% if form.analysis_result.errors %}
+                        <div class="text-red-500 mt-2">{{ form.analysis_result.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn w-full sm:w-auto bg-blue-600 text-white rounded px-6 py-2 mt-4 hover:bg-blue-700">Submit Analysis</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
 {% endblock %}
