@@ -68,7 +68,6 @@ def logout_view(request):
 # **********************************
 
 @login_required
-@login_required
 def upload_evidence(request):
     if request.method == 'POST':
         form = EvidenceForm(request.POST, request.FILES)
@@ -77,7 +76,7 @@ def upload_evidence(request):
             evidence.user = request.user  # Associate evidence with the logged-in user
             
             # Adjust the created_at timestamp based on timezone offset
-            timezone_offset = int(request.POST.get('timezone_offset', 0))  # Offset in minutes
+            timezone_offset = int(request.POST.get('timezone_offset', 0))
             adjusted_time = timezone.now() - timedelta(minutes=timezone_offset)
             evidence.created_at = adjusted_time
             
@@ -87,29 +86,11 @@ def upload_evidence(request):
     else:
         form = EvidenceForm()
     return render(request, 'analysis/upload_evidence.html', {'form': form})
-# def upload_evidence(request):
-#     if request.method == 'POST':
-#         form = EvidenceForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             evidence = form.save(commit=False)
-#             evidence.user = request.user  # Associate evidence with the logged-in user
-            
-#             # Adjust the created_at timestamp based on timezone offset
-#             timezone_offset = int(request.POST.get('timezone_offset', 0))
-#             adjusted_time = timezone.now() - timedelta(minutes=timezone_offset)
-#             evidence.created_at = adjusted_time
-            
-#             evidence.save()
-#             messages.success(request, 'Evidence uploaded successfully!')
-#             return render(request, 'analysis/upload_evidence.html', {'form': form, 'redirect': True})
-#     else:
-#         form = EvidenceForm()
-#     return render(request, 'analysis/upload_evidence.html', {'form': form})
 
-# @login_required
-# def evidence_list(request):
-#     user_evidence = Evidence.objects.filter(user=request.user, is_deleted=False)
-#     return render(request, 'analysis/evidence_list.html', {'evidence': user_evidence})
+@login_required
+def evidence_list(request):
+    user_evidence = Evidence.objects.filter(user=request.user, is_deleted=False)
+    return render(request, 'analysis/evidence_list.html', {'evidence': user_evidence})
 
 # **********************************
 # Analyze PCAP
