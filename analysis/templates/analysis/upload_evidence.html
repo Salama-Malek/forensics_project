@@ -42,14 +42,21 @@
                 <input type="file" name="file" id="file" class="file-input hidden" required />
                 <label for="file" class="btn btn-custom bg-orange-600 text-white px-4 py-2 rounded-lg cursor-pointer">Select File</label>
                 <p id="file-name" class="text-gray-300 mt-2"></p>
+
+                <!-- Hidden input to capture timezone offset -->
+                <input type="hidden" name="timezone_offset" id="timezone_offset" value="">
+
                 <button type="submit" class="btn bg-blue-600 text-white rounded px-6 py-2 mt-4 hover:bg-blue-700">Upload Evidence</button>
             </form>
         </div>
     </div>
 </div>
 
-<!-- JavaScript for drag-and-drop interaction -->
+<!-- JavaScript for setting timezone offset and drag-and-drop interaction -->
 <script>
+    // Set timezone offset in hidden input
+    document.getElementById('timezone_offset').value = new Date().getTimezoneOffset();
+
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('file');
     const fileNameDisplay = document.getElementById('file-name');
