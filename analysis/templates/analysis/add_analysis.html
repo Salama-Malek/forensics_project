@@ -43,16 +43,14 @@
                     {% csrf_token %}
                     <div class="mb-4">
                         <label for="evidence" class="text-gray-200 block mb-2">Evidence</label>
-                        <select id="evidence" name="evidence" class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300">
-                            <!-- options would be filled here based on server-side data -->
-                        </select>
+                        {{ form.evidence|add_class:"w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300" }}
                         {% if form.evidence.errors %}
                         <div class="text-red-500 mt-2">{{ form.evidence.errors.as_text }}</div>
                         {% endif %}
                     </div>
                     <div class="mb-4">
                         <label for="analysis_result" class="text-gray-200 block mb-2">Analysis Result</label>
-                        <textarea id="analysis_result" name="analysis_result" class="w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300 h-40"></textarea>
+                        {{ form.analysis_result|add_class:"w-full p-2 bg-gray-800 border border-gray-600 rounded-md text-gray-300 h-40" }}
                         {% if form.analysis_result.errors %}
                         <div class="text-red-500 mt-2">{{ form.analysis_result.errors.as_text }}</div>
                         {% endif %}
