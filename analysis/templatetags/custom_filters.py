@@ -8,6 +8,6 @@ def endswith(value, arg):
     return str(value).lower().endswith(arg)
 
 
-@register.filter(name='add_class')
-def add_class(field, css):
-    return field.as_widget(attrs={"class": css})
+# @register.filter(name='add_class')
+# def add_class(field, css):
+#     return field.as_widget(attrs={"class": css})
