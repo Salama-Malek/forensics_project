@@ -46,7 +46,11 @@
               <select id="evidence" name="evidence" class="w-full bg-slate-700 text-gray-200 p-2 truncate">
                 {% for evidence in form.evidence.field.choices %}
                   {% with evidence.1|basename as file_name %}
-                    <option value="{{ evidence.0 }}" title="{{ file_name }}">Ev {{ evidence.0 }} - {{ file_name|truncatechars:20 }}</option>
+                  {% with evidence.1|file_extension as ext %}
+                    <option value="{{ evidence.0 }}" title="{{ file_name }}">
+                      Ev {{ evidence.0 }} - {{ file_name|truncatechars:15 }}{{ ext }}
+                    </option>
+                  {% endwith %}
                   {% endwith %}
                 {% endfor %}
               </select>
@@ -58,7 +62,7 @@
           
           <div>
             <label for="analysis_result" class="block text-white text-lg mb-1">Analysis Result</label>
-            <textarea id="analysis_result" name="analysis_result" class="w-full bg-slate-700 text-gray-200  p-2 rounded resize-y h-32"></textarea>
+            <textarea id="analysis_result" name="analysis_result" class="w-full bg-slate-700 text-gray-200 p-2 rounded resize-y h-32"></textarea>
             {% if form.analysis_result.errors %}
               <div class="text-red-500 mt-1">{{ form.analysis_result.errors.as_text }}</div>
             {% endif %}
