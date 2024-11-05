@@ -7,29 +7,26 @@
 <div class="container mx-auto py-12 px-4 lg:px-8">
   <h2 class="text-2xl font-semibold text-gray-200 mb-10 text-center">Evidence and Malware Analysis</h2>
 
-  {% if messages %}
-  <div id="notification" class="alert alert-dismissible fade show mb-6" role="alert">
-      {% for message in messages %}
-        <div class="bg-blue-600 text-white p-4 rounded text-center">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <!-- Message Alert Section -->
+    {% if messages %}
+    <div id="notification" class="alert alert-dismissible fade show mb-4" role="alert">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} bg-blue-600 text-center p-4 rounded" style="color: green;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-      {% endfor %}
-  </div>
-  <script>
-      setTimeout(function(){
-          document.getElementById('notification').remove();
-      }, 3000); // 3 seconds delay
-  </script>
-  {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
 
   <style>
     /* Container and general layout */
     .evidence-container {
       display: flex;
       justify-content: center;
+      margin-top: 20px;
     }
 
     .evidence-list {
@@ -122,6 +119,13 @@
     .btn-delete:hover {
       background-color: #c53030;
     }
+      /* Error message styling */
+      .error-message {
+      color: #e53e3e;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      text-align: left;
+    }
   </style>
 
   <div class="evidence-container">
@@ -157,7 +161,7 @@
           {% endfor %}
         </ul>
       {% else %}
-        <div class="bg-blue-600 text-center p-4 rounded-lg mt-6 text-black">No evidence files uploaded yet.</div>
+        <div class="bg-blue-600 text-center p-4 rounded-lg mt-6 error-message">No evidence files uploaded yet.</div>
       {% endif %}
     </div>
   </div>

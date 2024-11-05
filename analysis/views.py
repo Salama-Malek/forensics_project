@@ -166,6 +166,9 @@ def analyze_log(request, log_id):
 def add_analysis(request):
     if request.method == 'POST':
         form = MalwareAnalysisForm(request.POST)
+        # Filtering queryset after POST to avoid including deleted files on validation errors
+        form.fields['evidence'].queryset = Evidence.objects.filter(user=request.user, is_deleted=False)
+        
         if form.is_valid():
             malware_analysis = form.save(commit=False)
             # Ensure the evidence is owned by the user
@@ -177,9 +180,11 @@ def add_analysis(request):
                 messages.error(request, 'You do not have permission to analyze this evidence.')
     else:
         form = MalwareAnalysisForm()
+        # Initial queryset setup for new GET requests
         form.fields['evidence'].queryset = Evidence.objects.filter(user=request.user, is_deleted=False)
 
     return render(request, 'analysis/add_analysis.html', {'form': form})
+
 
 # **********************************
 # Download Report
