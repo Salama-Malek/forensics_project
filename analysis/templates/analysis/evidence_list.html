@@ -4,13 +4,13 @@
 {% block title %}Evidence List{% endblock %}
 
 {% block content %}
-<div class="container mx-auto py-12 px-4 lg:px-8"> <!-- Increased padding on the top and bottom -->
-  <h2 class="text-2xl font-semibold text-gray-200 mb-10 text-center">Evidence and Malware Analysis</h2> <!-- Increased bottom margin -->
+<div class="container mx-auto py-12 px-4 lg:px-8">
+  <h2 class="text-2xl font-semibold text-gray-200 mb-10 text-center">Evidence and Malware Analysis</h2>
 
   {% if messages %}
-  <div id="notification" class="alert alert-dismissible fade show mb-6" role="alert"> <!-- Increased bottom margin -->
+  <div id="notification" class="alert alert-dismissible fade show mb-6" role="alert">
       {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} bg-blue-600 text-white p-4 rounded">
+        <div class="bg-blue-600 text-white p-4 rounded text-center">
           {{ message }}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -20,11 +20,11 @@
   </div>
   <script>
       setTimeout(function(){
-          window.location.href = "{% url 'evidence_list' %}";
-      }, 2000); // 2 seconds delay
+          document.getElementById('notification').remove();
+      }, 3000); // 3 seconds delay
   </script>
   {% endif %}
-  
+
   <style>
     /* Container and general layout */
     .evidence-container {
@@ -132,7 +132,7 @@
           <li class="evidence-item">
             <h5 class="evidence-title">
               <i class="fas fa-file-alt mr-2 text-blue-400"></i> 
-              Evidence {{ item.id }} - <span class="file-name" title="{{ item.file.name }}">{{ item.file.name|truncatechars:40 }}</span>
+              Ev {{ item.id }} - <span class="file-name" title="{{ item.file.name|shorten_filename }}">{{ item.file.name|shorten_filename }}</span>
             </h5>
             <p class="evidence-details"><i class="fas fa-calendar-alt mr-1 text-gray-400"></i> <strong>Uploaded on:</strong> {{ item.created_at|date:"F j, Y, g:i a" }}</p>
 
