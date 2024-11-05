@@ -11,12 +11,12 @@
 </head>
 
 <body class="font-rubik text-base text-slate-900 dark:text-white dark:bg-slate-900">
-    <!-- Navbar Start -->
-    <nav class="navbar" id="navbar">
-        <div class="container flex flex-wrap items-center justify-end">
-            <div class="nav-icons flex items-center lg_992:order-2 ms-auto">
+
+                <!-- Navbar Collapse Manu Button -->
                 <button data-collapse="menu-collapse" type="button"
-                    class="collapse-btn inline-flex items-center ms-3 text-dark dark:text-white lg_992:hidden">
+                    class="collapse-btn inline-flex items-center ms-3 text-dark dark:text-white lg_992:hidden"
+                    aria-controls="menu-collapse" aria-expanded="false">
+                    <span class="sr-only">Navigation Menu</span>
                     <i class="mdi mdi-menu mdi-24px"></i>
                 </button>
             </div>
@@ -56,7 +56,7 @@
                 </p>
 
                 <div class="relative mt-10">
-                    <a href="/get-started/"
+                    <a href="{% url 'register' %}"
                         class="btn bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md">Get
                         Started</a>
                 </div>
@@ -91,7 +91,7 @@
                         </p>
 
                         <div class="relative mt-10">
-                            <a href="#portfolio"
+                            <a href="#process"
                                 class="btn bg-orange-600 hover:bg-orange-700 border-orange-600 hover:border-orange-700 text-white rounded-md">Learn
                                 More</a>
 
@@ -262,8 +262,7 @@
                 forensic files accurately using our advanced tools.</p>
             <div class="mt-10">
                 <a href="{% url 'register' %}"
-                    class="btn bg-orange-600 hover:bg-orange-700 border-orange-600 hover:border-orange-700 text-white rounded-md">Get
-                    Started</a>
+                    class="btn bg-orange-600 hover:bg-orange-700 border-orange-600 hover:border-orange-700 text-white rounded-md">Register Now</a>
             </div>
         </div>
     </section>
