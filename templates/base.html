@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="light scroll-smooth" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,24 +13,36 @@
 
 <body class="font-rubik text-base text-slate-900 dark:text-white dark:bg-slate-900">
     <!-- Navbar Start -->
-    <nav class="navbar" id="navbar">
-        <div class="container flex flex-wrap items-center justify-end">
-            <div class="nav-icons flex items-center lg_992:order-2 ms-auto">
-                <button data-collapse="menu-collapse" type="button"
-                    class="collapse-btn inline-flex items-center ms-3 text-dark dark:text-white lg_992:hidden">
-                    <i class="mdi mdi-menu mdi-24px"></i>
-                </button>
-            </div>
+    <nav class="navbar bg-slate-800 p-4" id="navbar">
+        <div class="container flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex items-center text-white text-2xl font-semibold">
+                <img src="/static/assets/images/d-logo-light.png" alt="Digital Detective Logo" class="h-8 mr-3">
+                Digital Detective
+            </a>
 
-            <div class="navigation lg_992:order-1 lg_992:flex hidden" id="menu-collapse">
-                <ul class="navbar-nav nav-light" id="navbar-navlist">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">Our Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#process">Workflow</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#faqs">FAQs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+            <!-- Toggler for small screens -->
+            <button type="button" class="collapse-btn inline-flex items-center text-white lg:hidden"
+                onclick="toggleMenu()">
+                <i class="mdi mdi-menu mdi-24px"></i>
+            </button>
+
+            <!-- Navigation Links -->
+            <div id="menu-collapse" class="hidden lg:flex lg:items-center">
+                <ul class="navbar-nav flex flex-col lg:flex-row lg:space-x-4 text-center mt-4 lg:mt-0">
+                    <li class="nav-item"><a class="nav-link active text-white hover:text-blue-400" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-white hover:text-blue-400" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-white hover:text-blue-400" href="#features">Our
+                            Services</a></li>
+                    <li class="nav-item"><a class="nav-link text-white hover:text-blue-400" href="#process">Workflow</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-white hover:text-blue-400" href="#faqs">FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link text-white hover:text-blue-400"
+                            href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-white hover:text-blue-400"
+                            href="{% url 'register' %}">Register</a></li>
                 </ul>
             </div>
         </div>
@@ -270,74 +283,79 @@
     <!-- End -->
 
 
-<!-- Start FAQs -->
-<section class="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800" id="faqs" dir="rtl">
-    <div class="container">
-        <div class="grid grid-cols-1 pb-8 text-center">
-            <h6 class="text-orange-600 text-base font-medium uppercase mb-2">الأسئلة الشائعة</h6>
-            <h3 class="mb-4 md:text-2xl text-xl font-medium dark:text-white">كل ما تحتاج معرفته</h3>
-            <p class="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">إجابات عن الأسئلة الشائعة لمساعدتك في
-                استخدام منصتنا بسهولة.</p>
-        </div>
-
-        <div class="grid grid-cols-1 gap-6">
-            <!-- FAQ Item 1 -->
-            <div class="faq-item p-6 shadow rounded-md">
-                <button
-                    class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
-                    onclick="toggleAnswer(1)">
-                    <span>١. ما هو البرنامج؟</span> <span class="text-orange-600">+</span>
-                </button>
-                <p id="answer1" class="text-slate-400 mt-3 hidden">البرنامج هو أداة لتحليل الأدلة الجنائية الرقمية باستخدام
-                    تقنيات متقدمة للكشف عن الأنشطة المشبوهة وتحليل حركة مرور الشبكة.</p>
+    <!-- Start FAQs -->
+    <section class="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800" id="faqs" dir="rtl">
+        <div class="container">
+            <div class="grid grid-cols-1 pb-8 text-center">
+                <h6 class="text-orange-600 text-base font-medium uppercase mb-2">الأسئلة الشائعة</h6>
+                <h3 class="mb-4 md:text-2xl text-xl font-medium dark:text-white">كل ما تحتاج معرفته</h3>
+                <p class="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">إجابات عن الأسئلة الشائعة لمساعدتك في
+                    استخدام منصتنا بسهولة.</p>
             </div>
 
-            <!-- FAQ Item 2 -->
-            <div class="faq-item p-6 shadow rounded-md">
-                <button
-                    class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
-                    onclick="toggleAnswer(2)">
-                    <span>٢. كيف يمكنني إنشاء حساب؟</span> <span class="text-orange-600">+</span>
-                </button>
-                <p id="answer2" class="text-slate-400 mt-3 hidden">يمكنك التسجيل عبر الصفحة الرئيسية وإدخال البيانات المطلوبة
-                    مثل البريد الإلكتروني وكلمة المرور.</p>
-            </div>
+            <div class="grid grid-cols-1 gap-6">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item p-6 shadow rounded-md">
+                    <button
+                        class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
+                        onclick="toggleAnswer(1)">
+                        <span>١. ما هو البرنامج؟</span> <span class="text-orange-600">+</span>
+                    </button>
+                    <p id="answer1" class="text-slate-400 mt-3 hidden">البرنامج هو أداة لتحليل الأدلة الجنائية الرقمية
+                        باستخدام
+                        تقنيات متقدمة للكشف عن الأنشطة المشبوهة وتحليل حركة مرور الشبكة.</p>
+                </div>
 
-            <!-- FAQ Item 3 -->
-            <div class="faq-item p-6 shadow rounded-md">
-                <button
-                    class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
-                    onclick="toggleAnswer(3)">
-                    <span>٣. ما هي الملفات التي يمكنني رفعها؟</span> <span class="text-orange-600">+</span>
-                </button>
-                <p id="answer3" class="text-slate-400 mt-3 hidden">يمكنك رفع ملفات الأدلة الرقمية مثل ملفات PCAP لتحليلها.</p>
-            </div>
+                <!-- FAQ Item 2 -->
+                <div class="faq-item p-6 shadow rounded-md">
+                    <button
+                        class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
+                        onclick="toggleAnswer(2)">
+                        <span>٢. كيف يمكنني إنشاء حساب؟</span> <span class="text-orange-600">+</span>
+                    </button>
+                    <p id="answer2" class="text-slate-400 mt-3 hidden">يمكنك التسجيل عبر الصفحة الرئيسية وإدخال البيانات
+                        المطلوبة
+                        مثل البريد الإلكتروني وكلمة المرور.</p>
+                </div>
 
-            <!-- FAQ Item 4 -->
-            <div class="faq-item p-6 shadow rounded-md">
-                <button
-                    class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
-                    onclick="toggleAnswer(4)">
-                    <span>٤. كيف يتم تحليل الملفات؟</span> <span class="text-orange-600">+</span>
-                </button>
-                <p id="answer4" class="text-slate-400 mt-3 hidden">يتم تحليل الملفات باستخدام أدوات مدمجة في البرنامج لتقديم
-                    معلومات دقيقة حول حركة مرور الشبكة.</p>
-            </div>
+                <!-- FAQ Item 3 -->
+                <div class="faq-item p-6 shadow rounded-md">
+                    <button
+                        class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
+                        onclick="toggleAnswer(3)">
+                        <span>٣. ما هي الملفات التي يمكنني رفعها؟</span> <span class="text-orange-600">+</span>
+                    </button>
+                    <p id="answer3" class="text-slate-400 mt-3 hidden">يمكنك رفع ملفات الأدلة الرقمية مثل ملفات PCAP
+                        لتحليلها.</p>
+                </div>
 
-            <!-- FAQ Item 5 -->
-            <div class="faq-item p-6 shadow rounded-md">
-                <button
-                    class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
-                    onclick="toggleAnswer(5)">
-                    <span>٥. هل الملفات التي أرفعها آمنة؟</span> <span class="text-orange-600">+</span>
-                </button>
-                <p id="answer5" class="text-slate-400 mt-3 hidden">نعم، جميع الملفات التي يتم رفعها مؤمنة ولا يمكن لأي مستخدم آخر
-                    الوصول إليها.</p>
-            </div>
-        </div><!--end grid-->
-    </div><!--end container-->
-</section><!--end section-->
-<!-- End FAQs -->
+                <!-- FAQ Item 4 -->
+                <div class="faq-item p-6 shadow rounded-md">
+                    <button
+                        class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
+                        onclick="toggleAnswer(4)">
+                        <span>٤. كيف يتم تحليل الملفات؟</span> <span class="text-orange-600">+</span>
+                    </button>
+                    <p id="answer4" class="text-slate-400 mt-3 hidden">يتم تحليل الملفات باستخدام أدوات مدمجة في
+                        البرنامج لتقديم
+                        معلومات دقيقة حول حركة مرور الشبكة.</p>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item p-6 shadow rounded-md">
+                    <button
+                        class="faq-question flex justify-between items-center w-full text-right text-lg font-medium text-orange-600"
+                        onclick="toggleAnswer(5)">
+                        <span>٥. هل الملفات التي أرفعها آمنة؟</span> <span class="text-orange-600">+</span>
+                    </button>
+                    <p id="answer5" class="text-slate-400 mt-3 hidden">نعم، جميع الملفات التي يتم رفعها مؤمنة ولا يمكن
+                        لأي مستخدم آخر
+                        الوصول إليها.</p>
+                </div>
+            </div><!--end grid-->
+        </div><!--end container-->
+    </section><!--end section-->
+    <!-- End FAQs -->
 
 
 
@@ -422,6 +440,12 @@
         function toggleAnswer(num) {
             const answer = document.getElementById(`answer${num}`);
             answer.classList.toggle("hidden");
+        }
+    </script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu-collapse");
+            menu.classList.toggle("hidden");
         }
     </script>
 </body>
