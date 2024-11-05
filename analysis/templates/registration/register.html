@@ -1,252 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>Register - Digital Forensic Website</title>
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Digital Detective Website</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
   <style>
-    @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
-
+    /* Basic reset and full height/width setup */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Raleway, sans-serif;
+      box-sizing: border-box;
     }
-
-    body {
-      background: #1E293B;
-      /* Tailwind bg-slate-800 */
-    }
-
-    .container {
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      background-color: #1a202c;
     }
 
-    .screen {
-      background: #1E293B;
-      /* bg-slate-800 */
-      position: relative;
-      height: 600px;
-      width: 360px;
-      box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.7);
-      border-radius: 12px;
-    }
-
-    .screen__content {
-      z-index: 1;
-      position: relative;
-      height: 100%;
-    }
-
-    .screen__background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 0;
-      clip-path: inset(0 0 0 0);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .screen__background__shape {
-      transform: rotate(45deg);
-      position: absolute;
-    }
-
-    .screen__background__shape1 {
-      height: 520px;
-      width: 520px;
-      background: #4B5563;
-      /* Lighter slate */
-      top: -50px;
-      right: 120px;
-      border-radius: 0 72px 0 0;
-    }
-
-    .screen__background__shape2 {
-      height: 220px;
-      width: 220px;
-      background: #2563EB;
-      /* bg-blue-600 */
-      top: -172px;
-      right: 0;
-      border-radius: 32px;
-    }
-
-    .screen__background__shape3 {
-      height: 540px;
-      width: 190px;
-      background: #1E3A8A;
-      /* Darker blue */
-      top: -24px;
-      right: 0;
-      border-radius: 32px;
-    }
-
-    .screen__background__shape4 {
-      height: 400px;
-      width: 200px;
-      background: #374151;
-      /* Tailwind bg-slate-700 */
-      top: 420px;
-      right: 50px;
-      border-radius: 60px;
-    }
-
-    .register {
-      width: 320px;
-      padding: 30px;
-      padding-top: 156px;
-    }
-
-    .register__field {
-      padding: 20px 0px;
-      position: relative;
-    }
-
-    .register__icon {
-      position: absolute;
-      top: 30px;
-      color: #94A3B8;
-      /* text-slate-400 */
-    }
-
-    .register__input {
-      border: none;
-      border-bottom: 2px solid #4B5563;
-      /* Tailwind bg-slate-600 */
-      background: none;
-      padding: 10px;
-      padding-left: 24px;
-      font-weight: 700;
-      width: 75%;
-      color: #F1F5F9;
-      /* Tailwind text-gray-200 */
-      transition: .2s;
-    }
-
-    .register__input:focus {
-      outline: none;
-      border-bottom-color: #2563EB;
-      /* bg-blue-600 */
-    }
-
-    .register__submit {
-      background: #2563EB;
-      /* bg-blue-600 */
-      font-size: 14px;
-      margin-top: 30px;
-      padding: 16px 20px;
-      border-radius: 26px;
-      text-transform: uppercase;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
+    /* Container for centering content */
+    .register-container {
       width: 100%;
-      color: #FFFFFF;
-      /* white */
-      cursor: pointer;
-      transition: .2s;
+      max-width: 500px;
+      min-width: 300px;
+      padding: 2rem;
+      background-color: #2d3748;
+      border-radius: 8px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      color: #edf2f7;
+      text-align: center;
     }
 
-    .register__submit:hover {
-      background-color: #1E40AF;
-      /* Darker blue for hover */
+    /* Title */
+    .register-container h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
     }
 
-    .button__icon {
-      font-size: 24px;
-      margin-left: auto;
-      color: #94A3B8;
-      /* text-slate-400 */
+    /* Input fields */
+    .register-field {
+      position: relative;
+      margin-bottom: 1rem;
     }
-
-    .login-link {
+    .register-field i {
       position: absolute;
-      right: 10px;
-      bottom: 10px;
-      color: #D1D5DB;
-      /* text-slate-300 */
-      font-size: 16px;
+      top: 50%;
+      /* left: 10px; */
+      transform: translateY(-50%);
+      color: #a0aec0;
+    }
+    .register-input {
+      width: 100%;
+      padding: 0.75rem 2.5rem 0.75rem 2.5rem; /* Adjusted padding for icon and toggle */
+      border: none;
+      border-radius: 5px;
+      background-color: #4a5568;
+      color: #edf2f7;
+      font-size: 1rem;
+      margin-bottom: 0.25rem; /* Slight space between input and error */
+    }
+    .register-input:focus {
+      outline: none;
+      background-color: #5a6678;
     }
 
-    .login-link a {
-      color: #D1D5DB;
-      /* text-slate-300 */
+    /* Toggle Password Visibility */
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      color: #a0aec0;
+      cursor: pointer;
+    }
+
+    /* Register Button */
+    .register-button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 1rem;
+    }
+    .register-button:hover {
+      background-color: #2b6cb0;
+    }
+
+    /* Additional links */
+    .additional-links {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #a0aec0;
+    }
+    .additional-links a {
+      color: #63b3ed;
       text-decoration: none;
     }
-
-    .login-link a:hover {
-      color: #F1F5F9;
-      /* text-gray-200 */
+    .additional-links a:hover {
+      color: #90cdf4;
     }
 
+    /* Error message styling */
+    .error-message {
+      color: #e53e3e;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      text-align: left;
+    }
+
+    /* Back to Home Link */
+    .back-to-home {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
     .back-to-home a {
-      font-weight: bold;
-      color: #FFFFFF;
-      transition: color 0.2s ease;
-      padding: 10px;
+      color: #63b3ed;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .back-to-home a:hover {
+      color: #90cdf4;
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="screen">
-      <div class="screen__content">
+  <!-- Register Container -->
+  <div class="register-container">
+    <h2>Register to Digital Detective</h2>
 
-        <!-- Back to Home Page Link -->
-        <div class="back-to-home text-gray-200 mb-6 text-center">
-          <a href="{% url 'landing' %}" class="flex items-center justify-center text-blue-600 hover:text-blue-400">
-            <i class="fas fa-arrow-left mr-2"></i>Go Back
-          </a>
-        </div>
+    <!-- Back to Home Link -->
+    <div class="back-to-home text-gray-200 text-center">
+      <a href="{% url 'landing' %}" class="flex items-center justify-center go-back">
+        <i class="fas fa-arrow-left mr-2 text-white"></i>Go Back
+      </a>
+    </div>
 
+    <!-- Registration Form -->
+    <form method="POST">
+      {% csrf_token %}
 
-        <form class="register" method="POST">
-          {% csrf_token %}
-          <div class="register__field">
-            <i class="register__icon fas fa-user"></i>
-            <input type="text" name="username" class="register__input" placeholder="User name / Email" required>
-          </div>
-          <div class="register__field">
-            <i class="register__icon fas fa-lock"></i>
-            <input type="password" name="password1" class="register__input" placeholder="Password" id="password1"
-              required>
-            <i class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password1', this)"></i>
-          </div>
-          <div class="register__field">
-            <i class="register__icon fas fa-lock"></i>
-            <input type="password" name="password2" class="register__input" placeholder="Confirm Password"
-              id="password2" required>
-            <i class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password2', this)"></i>
-          </div>
-          <button class="button register__submit" type="submit">
-            <span class="button__text">Register Now</span>
-            <i class="button__icon fas fa-chevron-right"></i>
-          </button>
-          <div class="login-link">
-            Already have an account? <a href="{% url 'login' %}">Login</a>
-          </div>
-        </form>
+      <div class="register-field">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" class="register-input" placeholder="Username" required>
+        {% if form.username.errors %}
+          <div class="error-message">{{ form.username.errors.as_text }}</div>
+        {% endif %}
       </div>
-      <div class="screen__background">
-        <span class="screen__background__shape screen__background__shape4"></span>
-        <span class="screen__background__shape screen__background__shape3"></span>
-        <span class="screen__background__shape screen__background__shape2"></span>
-        <span class="screen__background__shape screen__background__shape1"></span>
+
+      <div class="register-field">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password1" class="register-input" id="password1" placeholder="Password" required>
+        <i class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password1', this)"></i>
+        {% if form.password1.errors %}
+          <div class="error-message">{{ form.password1.errors.as_text }}</div>
+        {% endif %}
       </div>
+
+      <div class="register-field">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password2" class="register-input" id="password2" placeholder="Confirm Password" required>
+        <i class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password2', this)"></i>
+        {% if form.password2.errors %}
+          <div class="error-message">{{ form.password2.errors.as_text }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="register-button">Register Now</button>
+    </form>
+
+    <!-- Additional Links -->
+    <div class="additional-links">
+      <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </div>
   </div>
 
   <script>
+    // Toggle password visibility
     function togglePasswordVisibility(passwordId, icon) {
       const passwordField = document.getElementById(passwordId);
       if (passwordField.type === 'password') {
@@ -260,8 +197,5 @@
       }
     }
   </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
